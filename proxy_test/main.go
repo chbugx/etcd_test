@@ -61,6 +61,7 @@ func test() {
 			}
 		}
 	}()
+	time.Sleep(time.Duration(10) * time.Hour)
 }
 
 func main() {
