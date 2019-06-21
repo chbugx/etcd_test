@@ -9,7 +9,9 @@ import (
 )
 
 const (
-	KeyPrefix = "test"
+	KeyPrefix = "test/overlord"
+	ExpUrl    = "/exp"
+	ModelUrl  = "/model"
 )
 
 func test() {
@@ -28,29 +30,20 @@ func test() {
 
 	//put
 
-	putResp, err := kv.Put(context.TODO(), KeyPrefix+"/c", "chb")
-	putResp, err = kv.Put(context.TODO(), KeyPrefix+"/b", "chb")
-	putResp, err = kv.Put(context.TODO(), KeyPrefix+"/a", "chb")
-	if err != nil {
-		fmt.Println("put err: ", err)
-	} else {
-		fmt.Println("putResp: ", putResp)
-	}
-
-	//get
-	getResp, err := kv.Get(context.TODO(), KeyPrefix+"/test/a")
-	if err != nil {
-		fmt.Println("put err: ", err)
-	} else {
-		fmt.Println("getResp: ", getResp)
-	}
-
-	//get
-	getResp, err = kv.Get(context.TODO(), KeyPrefix+"/test", etcd.WithPrefix())
-	if err != nil {
-		fmt.Println("put err: ", err)
-	} else {
-		fmt.Println("getResp: ", getResp)
+	for {
+		putResp, err := kv.Put(context.TODO(), KeyPrefix+"ModelUrl", "chb")
+		if err != nil {
+			fmt.Println("put model err: ", err)
+		} else {
+			fmt.Println("put model resp: ", putResp)
+		}
+		putResp, err = kv.Put(context.TODO(), KeyPrefix+"ExpUrl", "chb")
+		if err != nil {
+			fmt.Println("put model err: ", err)
+		} else {
+			fmt.Println("put exp resp: ", putResp)
+		}
+		time.Sleep(time.Duration(20) * time.Second)
 	}
 
 	//lease
