@@ -5,6 +5,7 @@ import (
 	"fmt"
 	etcd "go.etcd.io/etcd/clientv3"
 	"log"
+	"strconv"
 	"time"
 )
 
@@ -31,13 +32,13 @@ func test() {
 	//put
 
 	for {
-		putResp, err := kv.Put(context.TODO(), KeyPrefix+"ModelUrl", "chb")
+		putResp, err := kv.Put(context.TODO(), KeyPrefix+"ModelUrl", "chb"+strconv.Itoa(int(time.Now().Unix())))
 		if err != nil {
 			fmt.Println("put model err: ", err)
 		} else {
 			fmt.Println("put model resp: ", putResp)
 		}
-		putResp, err = kv.Put(context.TODO(), KeyPrefix+"ExpUrl", "chb")
+		putResp, err = kv.Put(context.TODO(), KeyPrefix+"ExpUrl", "chb"+strconv.Itoa(int(time.Now().Unix())))
 		if err != nil {
 			fmt.Println("put model err: ", err)
 		} else {
