@@ -52,8 +52,7 @@ func test() {
 		lease := etcd.NewLease(cli)
 
 		grantResp, err := lease.Grant(context.TODO(), 100)
-
-		putResp, err := kv.Put(context.TODO(), KeyPrefix+versionModel+ModelUrl, "chb"+strconv.Itoa(int(time.Now().Unix())), etcd.WithLease(grantResp.ID))
+		putResp, err := kv.Put(context.TODO(), KeyPrefix+versionModel+ModelUrl, "chb"+time.Unix(time.Now().Unix(), 0).Format("2006010201504"), etcd.WithLease(grantResp.ID))
 		if err != nil {
 			fmt.Println("put model err: ", err)
 		} else {
@@ -66,7 +65,7 @@ func test() {
 			}
 		}
 
-		putResp, err = kv.Put(context.TODO(), KeyPrefix+versionExp+ExpUrl, "chb"+strconv.Itoa(int(time.Now().Unix())), etcd.WithLease(grantResp.ID))
+		putResp, err = kv.Put(context.TODO(), KeyPrefix+versionExp+ExpUrl, "chb"+time.Unix(time.Now().Unix(), 0).Format("2006010201504"), etcd.WithLease(grantResp.ID))
 		if err != nil {
 			fmt.Println("put exp err: ", err)
 		} else {
