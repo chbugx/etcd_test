@@ -38,7 +38,7 @@ func test() {
 		versionModel = string(getResp.Kvs[0].Value)
 	}
 
-	getResp, err := kv.Get(context.TODO(), KeyPrefix+ExpUrl)
+	getResp, err = kv.Get(context.TODO(), KeyPrefix+ExpUrl)
 	if err != nil {
 		fmt.Println("get exp init err: ", err)
 	} else {
