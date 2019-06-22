@@ -5,7 +5,6 @@ import (
 	"fmt"
 	etcd "go.etcd.io/etcd/clientv3"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -52,12 +51,13 @@ func test() {
 		lease := etcd.NewLease(cli)
 
 		grantResp, err := lease.Grant(context.TODO(), 100)
-		putResp, err := kv.Put(context.TODO(), KeyPrefix+versionModel+ModelUrl, "chb"+time.Unix(time.Now().Unix(), 0).Format("2006010201504"), etcd.WithLease(grantResp.ID))
+		versionNew := time.Unix(time.Now().Unix(), 0).Format("2006010201504")
+		putResp, err := kv.Put(context.TODO(), KeyPrefix+versionModel+ModelUrl, "chb"+versionNew, etcd.WithLease(grantResp.ID))
 		if err != nil {
 			fmt.Println("put model err: ", err)
 		} else {
 			fmt.Println("put model resp: ", putResp)
-			putResp, err := kv.Put(context.TODO(), KeyPrefix+ModelUrl, strconv.Itoa(int(time.Now().Unix())))
+			putResp, err := kv.Put(context.TODO(), KeyPrefix+ModelUrl, versionNew)
 			if err != nil {
 				fmt.Println("put model src err: ", err)
 			} else {
@@ -65,12 +65,12 @@ func test() {
 			}
 		}
 
-		putResp, err = kv.Put(context.TODO(), KeyPrefix+versionExp+ExpUrl, "chb"+time.Unix(time.Now().Unix(), 0).Format("2006010201504"), etcd.WithLease(grantResp.ID))
+		putResp, err = kv.Put(context.TODO(), KeyPrefix+versionExp+ExpUrl, "chb"+versionNew, etcd.WithLease(grantResp.ID))
 		if err != nil {
 			fmt.Println("put exp err: ", err)
 		} else {
 			fmt.Println("put exp resp: ", putResp)
-			putResp, err := kv.Put(context.TODO(), KeyPrefix+ExpUrl, strconv.Itoa(int(time.Now().Unix())))
+			putResp, err := kv.Put(context.TODO(), KeyPrefix+ExpUrl, versionNew)
 			if err != nil {
 				fmt.Println("put exp src err: ", err)
 			} else {
