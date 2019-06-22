@@ -43,9 +43,17 @@ func test() {
 			_ = <-wtModel
 			getResp, err := kv.Get(context.TODO(), KeyPrefix+ModelUrl)
 			if err != nil {
-				fmt.Println("update model err: ", err)
+				fmt.Println("update model src err: ", err)
 			} else {
-				fmt.Println("update model: ", getResp)
+				fmt.Println("update model src resp: ", getResp)
+				versionModel := string(getResp.Kvs[0].Value)
+				getResp, err := kv.Get(context.TODO(), KeyPrefix+versionModel+ModelUrl)
+				if err != nil {
+					fmt.Println("update model err: err")
+				} else {
+					fmt.Println("update model resp: ", getResp)
+					//todo update model conf
+				}
 			}
 		}
 	}()
@@ -55,9 +63,17 @@ func test() {
 			_ = <-wtExp
 			getResp, err := kv.Get(context.TODO(), KeyPrefix+ExpUrl)
 			if err != nil {
-				fmt.Println("update exp err: ", err)
+				fmt.Println("update exp src err: ", err)
 			} else {
-				fmt.Println("update exp: ", getResp)
+				fmt.Println("update exp src resp: ", getResp)
+				versionExp := string(getResp.Kvs[0].Value)
+				getResp, err := kv.Get(context.TODO(), KeyPrefix+versionExp+ModelUrl)
+				if err != nil {
+					fmt.Println("update exp err: err")
+				} else {
+					fmt.Println("update exp resp: ", getResp)
+					//todo update exp conf
+				}
 			}
 		}
 	}()

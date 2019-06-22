@@ -54,17 +54,17 @@ func test() {
 	}
 
 	//lease
-	//lease := etcd.NewLease(cli)
+	lease := etcd.NewLease(cli)
 
-	//grantResp, err := lease.Grant(context.TODO(), 10)
-	//putResp, err = kv.Put(context.TODO(), "/test/lease", "1105", etcd.WithLease(grantResp.ID))
-	//if err != nil {
-	//	fmt.Println("put err: ", err)
-	//} else {
-	//	fmt.Println("putResp: ", putResp)
-	//}
+	grantResp, err := lease.Grant(context.TODO(), 10)
+	putResp, err = kv.Put(context.TODO(), "/test/lease", "1105", etcd.WithLease(grantResp.ID))
+	if err != nil {
+		fmt.Println("put err: ", err)
+	} else {
+		fmt.Println("putResp: ", putResp)
+	}
 
-	//fmt.Println(grantResp.TTL)
+	fmt.Println(grantResp.TTL)
 }
 
 func main() {
