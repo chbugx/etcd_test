@@ -35,6 +35,7 @@ func test() {
 	if err != nil {
 		fmt.Println("get model init err: ", err)
 	} else {
+		fmt.Println("get model init resp: ", getResp)
 		versionModel = string(getResp.Kvs[0].Value)
 	}
 
@@ -42,6 +43,7 @@ func test() {
 	if err != nil {
 		fmt.Println("get exp init err: ", err)
 	} else {
+		fmt.Println("get exp init resp: ", getResp)
 		versionExp = string(getResp.Kvs[0].Value)
 	}
 
