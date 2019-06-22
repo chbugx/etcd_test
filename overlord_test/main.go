@@ -36,6 +36,7 @@ func test() {
 	} else {
 		fmt.Println("get model init resp: ", getResp)
 		versionModel = string(getResp.Kvs[0].Value)
+		fmt.Println("get model version info: ", versionModel)
 	}
 
 	getResp, err = kv.Get(context.TODO(), KeyPrefix+ExpUrl)
@@ -44,6 +45,7 @@ func test() {
 	} else {
 		fmt.Println("get exp init resp: ", getResp)
 		versionExp = string(getResp.Kvs[0].Value)
+		fmt.Println("get exp version info: ", versionExp)
 	}
 
 	for {
