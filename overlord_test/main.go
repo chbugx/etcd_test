@@ -53,7 +53,7 @@ func test() {
 		lease := etcd.NewLease(cli)
 
 		grantResp, err := lease.Grant(context.TODO(), 100)
-		versionNew := "/" + time.Unix(time.Now().Unix(), 0).Format("200601021504")
+		versionNew := "/" + time.Unix(time.Now().Unix(), 0).Format("20060102150405")
 		putResp, err := kv.Put(context.TODO(), KeyPrefix+versionNew+ModelUrl, "chb"+versionNew, etcd.WithLease(grantResp.ID))
 		if err != nil {
 			fmt.Println("put model err: ", err)
