@@ -47,6 +47,7 @@ func test() {
 			} else {
 				fmt.Println("update model src resp: ", getResp)
 				versionModel := string(getResp.Kvs[0].Value)
+				fmt.Println("key: ", KeyPrefix+versionModel+ExpUrl)
 				getResp, err := kv.Get(context.TODO(), KeyPrefix+versionModel+ModelUrl)
 				if err != nil {
 					fmt.Println("update model err: err")
@@ -67,7 +68,8 @@ func test() {
 			} else {
 				fmt.Println("update exp src resp: ", getResp)
 				versionExp := string(getResp.Kvs[0].Value)
-				getResp, err := kv.Get(context.TODO(), KeyPrefix+versionExp+ModelUrl)
+				fmt.Println("key: ", KeyPrefix+versionExp+ExpUrl)
+				getResp, err := kv.Get(context.TODO(), KeyPrefix+versionExp+ExpUrl)
 				if err != nil {
 					fmt.Println("update exp err: err")
 				} else {
